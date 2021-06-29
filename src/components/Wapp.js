@@ -31,12 +31,14 @@ const Wapp = () => {
                         onChange = { (event) => {setSearch(event.target.value) } }  />
              
                 </div>
+
+           
             
     {!city ? (
         <p className ="errorMsg" > Opps!No Data Found </p>
     )   : (
         <div>
-        <div className = "info">
+       {search ? ( <div className = "info">
             <h2 className = "location" >
             <i className="fas fa-street-view"> </i>{search}
             </h2>
@@ -45,7 +47,8 @@ const Wapp = () => {
             </h1>
             <h3 className="tempmin_max">Min : {city.temp_min}°Cel | {city.temp_max}°Cel </h3>
 
-        </div>
+        </div>):"Please enter the Name of City"
+        }
             <div className = "wave">
                 <div className = "wave-one"></div>
                 </div>
