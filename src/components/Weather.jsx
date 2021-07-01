@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const WeatherComponentWrapper = styled.div`
@@ -27,7 +27,10 @@ const GithubLink = styled.a`
 const MainContent = styled.div`
 	flex: 0.9;
 	color: #fff;
-	/* background-color: green; */
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+	padding: 0 0 6rem 6rem;
 `;
 const Right = styled.div`
 	flex: 0.3;
@@ -86,34 +89,94 @@ const Title = styled.h3`
 	color: ${(props) => props.color || "#fff"};
 	margin: 0;
 	padding: ${(props) => props.padding};
+	letter-spacing: ${(props) => props.ls};
+`;
+const GuideText = styled.h1`
+	margin: 0;
+	font-size: 5rem;
+	padding: 3rem;
+`;
+const ContentWrapper = styled.div`
+	margin: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+`;
+const Temperature = styled.h1`
+	font-size: 7rem;
+	font-weight: 800;
+`;
+const LocationWrapper = styled.div``;
+// const DateTime = styled.p`
+// 	margin: 0;
+// `;
+const WSubInfo = styled.p`
+	margin: 0;
+`;
+const WeatherInfoWrapper = styled.div``;
+const Icon = styled.img``;
+const Wtype = styled.p`
+	margin: 0;
 `;
 
 const Weather = () => {
 	const [city, setCity] = useState();
+	const [weatherData, setWeatherData] = useState({});
+	const [arrayData, setArrayData] = useState([]);
+	const [show, setShow] = useState(false);
+	const [cod, setCod] = useState(false);
+
+	useEffect(() => {
+		setShow(true);
+	}, []);
+
 	const getCity = (e) => {
 		setCity(e.target.value);
 	};
 
-	const searchCity = () => {
+	const searchCity = (e) => {
+		// if (e.key === "Enter") {
 		console.log(city);
-		setCity("");
+
+		const fetchWeatherData = async () => {
+			const res = await fetch(
+				`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b1fb91a0f456e84a7667c0a94073fc9e`
+			);
+			const weatherInfo = await res.json();
+			console.log("Data", weatherInfo);
+			if (weatherInfo.cod === 200) {
+				setWeatherData(weatherInfo);
+				setArrayData(weatherInfo.weather[0]);
+
+				setCod(false);
+			} else {
+				setWeatherData(weatherInfo);
+				setCod(true);
+			}
+		};
+		fetchWeatherData();
+		console.log("out of func", weatherData);
+		setCity();
+		setShow(false);
+		// }
 	};
 
-	function getCurrentDate() {
-		let options = {
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-			hour: "2-digit",
-			minute: "2-digit",
-			hour12: true,
-		};
+	// TRIED TO GET SEARCHED QUERIES DATE AND TIME
+	// function getCurrentDate() {
+	// 	// let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	// 	let options = {
+	// 		weekday: "long",
+	// 		year: "numeric",
+	// 		month: "long",
+	// 		day: "numeric",
+	// 		hour: "2-digit",
+	// 		minute: "2-digit",
+	// 		hour12: true,
+	// 	};
 
-		// return new Date().toLocaleString("en-GB", options);
-		return new Date().toLocaleTimeString([], options);
-	}
-	getCurrentDate();
+	// 	// return new Date().toLocaleString("en-GB", { timezone: timezone });
+	// 	return new Date().toLocaleTimeString([], options);
+	// }
 
 	return (
 		<WeatherComponentWrapper>
@@ -133,7 +196,39 @@ const Weather = () => {
 							name='github'></box-icon>
 					</GithubLink>
 				</TopBar>
-				<MainContent></MainContent>
+				<MainContent>
+					{show ? (
+						<GuideText>Type City</GuideText>
+					) : (
+						<>
+							{cod ? (
+								<GuideText> {weatherData?.message} </GuideText>
+							) : (
+								<>
+									<ContentWrapper>
+										<Temperature>
+											{weatherData?.main?.temp?.toString().split(".")[0]}°
+										</Temperature>
+										<LocationWrapper>
+											<Title fs='4rem' ls='1px' fw='700'>
+												{weatherData?.name}
+											</Title>
+											{/* <DateTime></DateTime> */}
+											<WSubInfo>{arrayData?.description}</WSubInfo>
+										</LocationWrapper>
+										<WeatherInfoWrapper>
+											<Icon
+												src={`http://openweathermap.org/img/w/${arrayData?.icon}.png`}
+												alt='icon'
+											/>
+											<Wtype>{arrayData?.main}</Wtype>
+										</WeatherInfoWrapper>
+									</ContentWrapper>
+								</>
+							)}
+						</>
+					)}
+				</MainContent>
 			</Left>
 			<Right>
 				<InputWrapper>
@@ -142,13 +237,14 @@ const Weather = () => {
 						placeholder='Type City Name'
 						value={city || ""}
 						onChange={getCity}
+						// onKeyDown={searchCity}
 					/>
 					<Button onClick={searchCity}>Search</Button>
 				</InputWrapper>
 				<Hr />
 				<DetailsWrapper>
 					<Title fs='1.1rem' fw='400'>
-						Weather Details
+						Weather Details {` of ${weatherData.name || "Searched City"}`}
 					</Title>
 				</DetailsWrapper>
 			</Right>
