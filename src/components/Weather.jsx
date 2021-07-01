@@ -118,8 +118,23 @@ const Icon = styled.img``;
 const Wtype = styled.p`
 	margin: 0;
 `;
+const DataList = styled.ul`
+	margin: 2.5rem 0;
+`;
+const DataHolder = styled.li`
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem 0;
+	color: #aaa;
+`;
+const DataSpan = styled.span`
+	font-size: 1rem;
+	font-weight: 500;
+	color: #aaa;
+`;
 
-const Weather = () => {
+const Weather = ({ setChangeBackground }) => {
 	const [city, setCity] = useState();
 	const [weatherData, setWeatherData] = useState({});
 	const [arrayData, setArrayData] = useState([]);
@@ -135,33 +150,33 @@ const Weather = () => {
 	};
 
 	const searchCity = (e) => {
-		// if (e.key === "Enter") {
-		console.log(city);
+		if (e.key === "Enter") {
+			console.log(city);
 
-		const fetchWeatherData = async () => {
-			const res = await fetch(
-				`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b1fb91a0f456e84a7667c0a94073fc9e`
-			);
-			const weatherInfo = await res.json();
-			console.log("Data", weatherInfo);
-			if (weatherInfo.cod === 200) {
-				setWeatherData(weatherInfo);
-				setArrayData(weatherInfo.weather[0]);
-
-				setCod(false);
-			} else {
-				setWeatherData(weatherInfo);
-				setCod(true);
-			}
-		};
-		fetchWeatherData();
-		console.log("out of func", weatherData);
-		setCity();
-		setShow(false);
-		// }
+			const fetchWeatherData = async () => {
+				const res = await fetch(
+					`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=b1fb91a0f456e84a7667c0a94073fc9e`
+				);
+				const weatherInfo = await res.json();
+				console.log("Data", weatherInfo);
+				if (weatherInfo.cod === 200) {
+					setWeatherData(weatherInfo);
+					setArrayData(weatherInfo.weather[0]);
+					setChangeBackground(weatherInfo.weather[0].main);
+					setCod(false);
+				} else {
+					setWeatherData(weatherInfo);
+					setCod(true);
+				}
+			};
+			fetchWeatherData();
+			console.log("out of func", weatherData);
+			setCity();
+			setShow(false);
+		}
 	};
 
-	// TRIED TO GET SEARCHED QUERIES DATE AND TIME
+	// TRIED TO GET SEARCHED QUERIES DATE AND TIME But ITS A BIT COMPLICATED FOR SIMPLE PROJECT LIKE THIS
 	// function getCurrentDate() {
 	// 	// let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	// 	let options = {
@@ -237,15 +252,54 @@ const Weather = () => {
 						placeholder='Type City Name'
 						value={city || ""}
 						onChange={getCity}
-						// onKeyDown={searchCity}
+						onKeyDown={searchCity}
 					/>
 					<Button onClick={searchCity}>Search</Button>
 				</InputWrapper>
 				<Hr />
 				<DetailsWrapper>
-					<Title fs='1.1rem' fw='400'>
+					<Title fs='1.2rem' fw='400'>
 						Weather Details {` of ${weatherData.name || "Searched City"}`}
 					</Title>
+					<DataList>
+						<DataHolder>
+							<Title color='#aaa' fs='1rem' fw='600'>
+								Recorded Temperature
+							</Title>
+							<DataSpan>{weatherData?.main?.temp} °C</DataSpan>
+						</DataHolder>
+						<DataHolder>
+							<Title color='#aaa' fs='1rem' fw='600'>
+								What it feels like
+							</Title>
+							<DataSpan>{weatherData?.main?.feels_like} °C</DataSpan>
+						</DataHolder>
+						<DataHolder>
+							<Title color='#aaa' fs='1rem' fw='600'>
+								Minimum Temperature
+							</Title>
+							<DataSpan>{weatherData?.main?.temp_min} °C</DataSpan>
+						</DataHolder>
+						<DataHolder>
+							<Title color='#aaa' fs='1rem' fw='600'>
+								Maximum Temperature
+							</Title>
+							<DataSpan>{weatherData?.main?.temp_max} °C</DataSpan>
+						</DataHolder>
+						<DataHolder>
+							<Title color='#aaa' fs='1rem' fw='600'>
+								Recorded Pressure
+							</Title>
+							<DataSpan>{weatherData?.main?.pressure}</DataSpan>
+						</DataHolder>
+
+						<DataHolder>
+							<Title color='#aaa' fs='1rem' fw='600'>
+								Recorded Humidity
+							</Title>
+							<DataSpan>{weatherData?.main?.humidity}</DataSpan>
+						</DataHolder>
+					</DataList>
 				</DetailsWrapper>
 			</Right>
 		</WeatherComponentWrapper>
