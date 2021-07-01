@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/weather-app/static/css/main.bb60d8cc.chunk.css",
+    "main.js": "/weather-app/static/js/main.369edaf2.chunk.js",
+    "main.js.map": "/weather-app/static/js/main.369edaf2.chunk.js.map",
+    "runtime-main.js": "/weather-app/static/js/runtime-main.e54fc896.js",
+    "runtime-main.js.map": "/weather-app/static/js/runtime-main.e54fc896.js.map",
+    "static/js/2.8180409c.chunk.js": "/weather-app/static/js/2.8180409c.chunk.js",
+    "static/js/2.8180409c.chunk.js.map": "/weather-app/static/js/2.8180409c.chunk.js.map",
+    "static/js/3.4b7cb753.chunk.js": "/weather-app/static/js/3.4b7cb753.chunk.js",
+    "static/js/3.4b7cb753.chunk.js.map": "/weather-app/static/js/3.4b7cb753.chunk.js.map",
+    "index.html": "/weather-app/index.html",
+    "static/css/main.bb60d8cc.chunk.css.map": "/weather-app/static/css/main.bb60d8cc.chunk.css.map",
+    "static/js/2.8180409c.chunk.js.LICENSE.txt": "/weather-app/static/js/2.8180409c.chunk.js.LICENSE.txt",
+    "static/media/clear.478636a3.webp": "/weather-app/static/media/clear.478636a3.webp",
+    "static/media/clear.894fbe63.jpg": "/weather-app/static/media/clear.894fbe63.jpg",
+    "static/media/clouds.cd7d61c3.jpg": "/weather-app/static/media/clouds.cd7d61c3.jpg",
+    "static/media/clouds.d33c984c.webp": "/weather-app/static/media/clouds.d33c984c.webp",
+    "static/media/drizzle.79314972.webp": "/weather-app/static/media/drizzle.79314972.webp",
+    "static/media/drizzle.cb5d6f1c.jpg": "/weather-app/static/media/drizzle.cb5d6f1c.jpg",
+    "static/media/fog.80978670.webp": "/weather-app/static/media/fog.80978670.webp",
+    "static/media/fog.b3ef46f7.jpg": "/weather-app/static/media/fog.b3ef46f7.jpg",
+    "static/media/haze.33a82d41.webp": "/weather-app/static/media/haze.33a82d41.webp",
+    "static/media/haze.ce56be8c.jpg": "/weather-app/static/media/haze.ce56be8c.jpg",
+    "static/media/mist.3388c490.jpg": "/weather-app/static/media/mist.3388c490.jpg",
+    "static/media/mist.b1a87ac3.webp": "/weather-app/static/media/mist.b1a87ac3.webp",
+    "static/media/rain.2e46f7f8.webp": "/weather-app/static/media/rain.2e46f7f8.webp",
+    "static/media/rain.4e942c9b.jpg": "/weather-app/static/media/rain.4e942c9b.jpg",
+    "static/media/snow.2222aa72.webp": "/weather-app/static/media/snow.2222aa72.webp",
+    "static/media/snow.45437293.jpg": "/weather-app/static/media/snow.45437293.jpg",
+    "static/media/sunny.02e2002c.webp": "/weather-app/static/media/sunny.02e2002c.webp",
+    "static/media/sunny.2d868bf6.jpg": "/weather-app/static/media/sunny.2d868bf6.jpg",
+    "static/media/thunderstorm.13f18b41.jpg": "/weather-app/static/media/thunderstorm.13f18b41.jpg",
+    "static/media/thunderstorm.e21f015b.webp": "/weather-app/static/media/thunderstorm.e21f015b.webp"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e54fc896.js",
+    "static/js/2.8180409c.chunk.js",
+    "static/css/main.bb60d8cc.chunk.css",
+    "static/js/main.369edaf2.chunk.js"
+  ]
+}
